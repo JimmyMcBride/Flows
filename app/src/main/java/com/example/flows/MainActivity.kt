@@ -9,6 +9,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.flows.ui.theme.FlowsTheme
@@ -18,6 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val viewModel by viewModels<MainViewModel>()
+            val count by viewModel.countState.collectAsState()
             FlowsTheme {
                 // A surface container using the 'background' color from the theme
                 viewModel.start()
@@ -25,7 +28,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    Greeting(count.toString())
                 }
             }
         }
